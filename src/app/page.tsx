@@ -1,22 +1,14 @@
 "use client";
 
 import { useState } from "react";
-
-type List = {
-  label: string;
-};
+import { useTodoStore } from "@/stores/todo";
 
 export default function Page() {
-  const [text, setText] = useState("");
-  const [list, setList] = useState<List[]>([]);
+  const { todo, addTodo } = useTodoStore();
+  const [text, setText] = useState<string>("");
 
-  const addTodo = () => {
-    setList([
-      ...list,
-      {
-        label: text,
-      },
-    ]);
+  const handleOnAddTodo = () => {
+    addTodo({ label: text });
     setText("");
   };
 
@@ -28,10 +20,12 @@ export default function Page() {
           onChange={(e) => setText(e.target.value)}
           value={text}
         />
-        <button onClick={() => addTodo()}>追加</button>
+        <button onClick={() => handleOnAddTodo()} disabled={text === ""}>
+          追加
+        </button>
       </div>
       <ul>
-        {list.map((item, i) => {
+        {todo.map((item, i) => {
           return <li key={i}>{item.label}</li>;
         })}
       </ul>

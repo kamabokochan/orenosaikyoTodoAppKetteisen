@@ -1,10 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useTodoStore } from "@/stores/todo";
+import useStore from "@/hooks/useStore";
+import { useTodoStore, List } from "@/stores/todo";
 
 export default function Page() {
-  const { todo, addTodo } = useTodoStore();
+  // zustandの永続化におけるNextの対応
+  // docs: https://github.com/pmndrs/zustand/blob/main/docs/integrations/persisting-store-data.md#usage-in-nextjs
+  // Zustandが待機するため、useStoreからundifinedが返った場合に、空配列を代入
+  // TODO: todoがList[]型だが、undifinedの可能性を暗黙的に持っているため対応する
+  const todo = useStore(useTodoStore, (state) => state.todo) || [];
+  const { addTodo } = useTodoStore();
   const [text, setText] = useState<string>("");
 
   const handleOnAddTodo = () => {

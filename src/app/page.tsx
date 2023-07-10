@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+
 import useStore from "@/hooks/useStore";
-import { useTodoStore, List } from "@/stores/todo";
+import { useTodoStore } from "@/stores/todo";
 
 export default function Page() {
   // zustandの永続化におけるNextの対応
@@ -10,11 +11,11 @@ export default function Page() {
   // Zustandが待機するため、useStoreからundifinedが返った場合に、空配列を代入
   // TODO: todoがList[]型だが、undifinedの可能性を暗黙的に持っているため対応する
   const todo = useStore(useTodoStore, (state) => state.todo) || [];
-  const { addTodo } = useTodoStore();
+  const { addTodo, updateStatus } = useTodoStore();
   const [text, setText] = useState<string>("");
 
   const handleOnAddTodo = () => {
-    addTodo({ label: text });
+    addTodo(text);
     setText("");
   };
 
@@ -32,7 +33,15 @@ export default function Page() {
       </div>
       <ul>
         {todo.map((item, i) => {
-          return <li key={i}>{item.label}</li>;
+          return (
+            <li key={i}>
+              <p>id: {item.id}</p>
+              <p>label: {item.label}</p>
+              <p>isDone: {`${item.isDone}`}</p>
+              <button onClick={() => updateStatus(item.id)}>完了</button>
+              <button onClick={() => handleOnAddTodo()}>削除</button>
+            </li>
+          );
         })}
       </ul>
     </>

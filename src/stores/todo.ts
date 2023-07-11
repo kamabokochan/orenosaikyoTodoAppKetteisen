@@ -12,6 +12,7 @@ interface TodoState {
   todo: List[];
   addTodo: (label: List["label"]) => void;
   updateStatus: (id: List["id"]) => void;
+  deleteTodo: (id: List["id"]) => void;
 }
 
 export const useTodoStore = create<TodoState>()(
@@ -39,6 +40,10 @@ export const useTodoStore = create<TodoState>()(
           }
           return list;
         });
+        set({ todo: newList });
+      },
+      deleteTodo: (id) => {
+        const newList = [...get().todo].filter((list) => list.id !== id);
         set({ todo: newList });
       },
     }),

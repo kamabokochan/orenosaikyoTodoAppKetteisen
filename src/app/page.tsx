@@ -11,7 +11,7 @@ export default function Page() {
   // Zustandが待機するため、useStoreからundifinedが返った場合に、空配列を代入
   // TODO: todoがList[]型だが、undifinedの可能性を暗黙的に持っているため対応する
   const todo = useStore(useTodoStore, (state) => state.todo) || [];
-  const { addTodo, updateStatus } = useTodoStore();
+  const { addTodo, updateStatus, deleteTodo } = useTodoStore();
   const [text, setText] = useState<string>("");
 
   const handleOnAddTodo = () => {
@@ -39,7 +39,7 @@ export default function Page() {
               <p>label: {item.label}</p>
               <p>isDone: {`${item.isDone}`}</p>
               <button onClick={() => updateStatus(item.id)}>完了</button>
-              <button onClick={() => handleOnAddTodo()}>削除</button>
+              <button onClick={() => deleteTodo(item.id)}>削除</button>
             </li>
           );
         })}

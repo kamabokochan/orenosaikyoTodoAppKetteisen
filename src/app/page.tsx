@@ -37,8 +37,11 @@ export default function Page() {
             <li key={i}>
               <p>id: {item.id}</p>
               <p>label: {item.label}</p>
-              <p>isDone: {`${item.isDone}`}</p>
-              <button onClick={() => updateStatus(item.id)}>完了</button>
+              <p>
+                <span>isDone: {`${item.isDone}`}</span>
+                {item.isDone && <span>✅</span>}
+              </p>
+              <button onClick={() => updateStatus(item.id)}>確認</button>
               <button onClick={() => deleteTodo(item.id)}>削除</button>
             </li>
           );

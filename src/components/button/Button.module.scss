@@ -1,9 +1,9 @@
 .button {
-  background-color: #2483e2;
-  color: #ffffff;
   padding: 8px 16px;
-  border-radius: 3px;
+  color: #fff;
+  background-color: #2483e2;
   border: none;
+  border-radius: 3px;
 
   &:hover {
     opacity: 0.8;
@@ -13,6 +13,7 @@
   &.complete {
     background-color: #2b612b;
   }
+
   &.delete {
     background-color: #722e2e;
   }

@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import useStore from "@/hooks/useStore";
 import { useTodoStore } from "@/stores/todo";
+
+import "./global.scss";
+
+import { Button } from "@/components/button";
 
 export default function Page() {
   // zustandの永続化におけるNextの対応
@@ -19,30 +23,41 @@ export default function Page() {
     setText("");
   };
 
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        handleOnAddTodo();
+      }
+    },
+    [text]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [text]);
+
   return (
     <>
-      <div>
+      <div className="register">
         <input
           type="text"
           onChange={(e) => setText(e.target.value)}
           value={text}
+          placeholder="TODOを追加する"
         />
-        <button onClick={() => handleOnAddTodo()} disabled={text === ""}>
-          追加
-        </button>
       </div>
       <ul>
         {todo.map((item, i) => {
           return (
             <li key={i}>
-              <p>id: {item.id}</p>
-              <p>label: {item.label}</p>
-              <p>
-                <span>isDone: {`${item.isDone}`}</span>
-                {item.isDone && <span>✅</span>}
-              </p>
-              <button onClick={() => updateStatus(item.id)}>確認</button>
-              <button onClick={() => deleteTodo(item.id)}>削除</button>
+              <p className={item.isDone ? "done" : ""}>{item.label}</p>
+              <Button onClick={() => updateStatus(item.id)} color="complete">
+                完了
+              </Button>
+              <Button onClick={() => deleteTodo(item.id)} color="delete">
+                削除
+              </Button>
             </li>
           );
         })}

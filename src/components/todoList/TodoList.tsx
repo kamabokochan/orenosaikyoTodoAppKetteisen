@@ -17,17 +17,22 @@ export const TodoList = () => {
     <ul className={styles.list}>
       {todo.map((item, i) => {
         return (
-          <li className={styles.item}>
+          <li className={styles.item} key={i}>
             <p
               className={
                 item.isDone
                   ? `${styles.label} ${styles.done}`
                   : `${styles.label}`
               }
+              data-testid="todo-label"
             >
               {item.label}
             </p>
-            <Button onClick={() => updateStatus(item.id)} color="complete">
+            <Button
+              onClick={() => updateStatus(item.id)}
+              color="complete"
+              testId="complete-button"
+            >
               完了
             </Button>
             <Button onClick={() => deleteTodo(item.id)} color="delete">

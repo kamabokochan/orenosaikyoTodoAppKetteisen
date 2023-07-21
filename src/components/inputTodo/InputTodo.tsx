@@ -35,6 +35,7 @@ export const InputTodo = () => {
         value={text}
         placeholder="TODOを追加する"
         className={styles.input}
+        data-testid="input-todo"
       />
     </div>
   );

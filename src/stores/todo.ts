@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { nanoid } from "nanoid";
+import { v4 as uuidv4 } from "uuid";
 
 export interface List {
   id: string;
@@ -24,7 +24,7 @@ export const useTodoStore = create<TodoState>()(
           todo: [
             ...get().todo,
             {
-              id: nanoid(),
+              id: uuidv4(),
               label: label,
               isDone: false,
             },

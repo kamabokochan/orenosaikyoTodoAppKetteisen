@@ -8,7 +8,7 @@ export interface List {
   isDone: boolean;
 }
 
-interface TodoState {
+export interface TodoState {
   todo: List[];
   addTodo: (label: List["label"]) => void;
   updateStatus: (id: List["id"]) => void;

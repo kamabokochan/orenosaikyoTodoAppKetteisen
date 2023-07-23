@@ -1,0 +1,28 @@
+.list {
+  width: 100%;
+  min-width: 400px;
+  max-width: 800px;
+  padding: 48px 32px;
+  margin: 120px auto 60px;
+  background: #252525;
+  border-radius: 4px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  + .item {
+    margin-top: 16px;
+  }
+
+  .label {
+    flex: 1;
+    &.done {
+      color: #6c6c6c;
+    }
+  }
+
+  > * {
+    margin: 4px;
+  }
+}

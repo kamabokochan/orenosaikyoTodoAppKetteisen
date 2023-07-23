@@ -1,0 +1,20 @@
+.button {
+  padding: 8px 16px;
+  color: #fff;
+  background-color: #2483e2;
+  border: none;
+  border-radius: 3px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  // 色上書き
+  &.complete {
+    background-color: #2b612b;
+  }
+
+  &.delete {
+    background-color: #722e2e;
+  }
+}
